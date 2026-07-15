@@ -54,7 +54,7 @@ async function payNow() {
 
         try {
 
-            const res = await fetch("http://localhost:5000/api/orders", {
+            const res = await fetch("https://food-ordering-system.up.railway.app/api/orders", {
 
                 method: "POST",
 

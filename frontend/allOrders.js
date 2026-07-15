@@ -4,7 +4,7 @@ async function loadOrders() {
 
     try {
 
-        const res = await fetch("http://localhost:5000/api/orders/all");
+        const res = await fetch("https://food-ordering-system.up.railway.app/api/orders/all");
 
         const data = await res.json();
 
@@ -73,7 +73,7 @@ async function updateStatus(orderId, status) {
     try {
 
         const res = await fetch(
-            `http://localhost:5000/api/orders/status/${orderId}`, {
+            `https://food-ordering-system.up.railway.app/api/orders/status/${orderId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

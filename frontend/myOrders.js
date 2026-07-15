@@ -14,7 +14,7 @@ async function loadMyOrders() {
 
     try {
 
-        const res = await fetch(`http://localhost:5000/api/orders/${user._id}`);
+        const res = await fetch(`https://food-ordering-system.up.railway.app/api/orders/${user._id}`);
 
         const data = await res.json();
 

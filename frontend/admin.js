@@ -2,7 +2,7 @@ async function loadDashboard() {
 
     try {
 
-        const res = await fetch("http://localhost:5000/api/foods/dashboard");
+        const res = await fetch("https://food-ordering-system.up.railway.app/api/foods/dashboard");
 
         const data = await res.json();
 
@@ -29,7 +29,7 @@ async function loadLatestOrders() {
 
     try {
 
-        const res = await fetch("http://localhost:5000/api/orders/all");
+        const res = await fetch("https://food-ordering-system.up.railway.app/api/orders/all");
 
         const data = await res.json();
 
