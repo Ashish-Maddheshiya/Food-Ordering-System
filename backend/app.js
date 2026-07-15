@@ -2,6 +2,7 @@ console.log("🔥 APP FILE LOADED");
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
@@ -36,8 +37,10 @@ app.use("/api/orders", orderRoutes);
 // ==========================
 // Home Route
 // ==========================
+app.use(express.static(path.join(__dirname, "../frontend")));
+
 app.get("/", (req, res) => {
-    res.send("🍔 Food Ordering API Running...");
+    res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 module.exports = app;
