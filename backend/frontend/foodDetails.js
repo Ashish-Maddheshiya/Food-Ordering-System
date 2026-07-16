@@ -4,7 +4,7 @@ async function loadFood() {
 
     try {
 
-        const res = await fetch("https://food-ordering-system.up.railway.app/api/foods");
+        const res = await fetch("https://food-ordering-system-production-abb0.up.railway.app/api/foods");
 
         const data = await res.json();
 
@@ -113,7 +113,7 @@ async function submitReview() {
 
     }
 
-    const res = await fetch("https://food-ordering-system.up.railway.app/api/reviews", {
+    const res = await fetch("https://food-ordering-system-production-abb0.up.railway.app/api/reviews", {
 
         method: "POST",
 
@@ -158,7 +158,7 @@ async function loadRelatedFoods() {
 
     try {
 
-        const res = await fetch(`https://food-ordering-system.up.railway.app/api/foods/related/${foodId}`);
+        const res = await fetch(`https://food-ordering-system-production-abb0.up.railway.app/api/foods/related/${foodId}`);
 
         const data = await res.json();
 
@@ -195,7 +195,7 @@ async function loadRelatedFoods() {
 
 async function loadReviews() {
 
-    const res = await fetch(`https://food-ordering-system.up.railway.app/api/reviews/${foodId}`);
+    const res = await fetch(`https://food-ordering-system-production-abb0.up.railway.app/api/reviews/${foodId}`);
 
     const data = await res.json();
 
