@@ -572,31 +572,32 @@ async function loadDashboardAnalytics() {
             <br>
 
             <div class="action">
-                <button onclick="viewFood('${food._id}')">
-                👁 View Details
-                </button>
 
-                <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
+    <button onclick="viewFood('${food._id}')">
+        👁 View Details
+    </button>
 
-                    🛒 Add To Cart
+    <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
+        🛒 Add To Cart
+    </button>
 
-                </button>
+    ${
+        JSON.parse(localStorage.getItem("user"))?.role === "admin"
+        ? `
+        <button onclick="updateFood('${food._id}')">
+            ✏ Update
+        </button>
 
-                <button onclick="updateFood('${food._id}')">
+        <button onclick="deleteFood('${food._id}')">
+            🗑 Delete
+        </button>
+        `
+        : ""
+    }
 
-                    ✏ Update
+</div>
 
-                </button>
-
-                <button onclick="deleteFood('${food._id}')">
-
-                    🗑 Delete
-
-                </button>
-
-            </div>
-
-        </div>
+</div>
 
         `;
 
