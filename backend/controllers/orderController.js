@@ -37,7 +37,7 @@ exports.placeOrder = async(req, res) => {
 
             totalAmount,
 
-            status: "Pending"
+            status: "Paid"
 
         });
 
