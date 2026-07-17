@@ -37,21 +37,14 @@ async function payNow() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const orderData = {
-
             userId: user._id,
-
             customerName,
-
             phone,
-
             address,
-
             items,
-
-            totalAmount: total
-
+            totalAmount: total,
+            status: "Paid"
         };
-
         try {
 
             const res = await fetch("https://food-ordering-system.up.railway.app/api/orders", {

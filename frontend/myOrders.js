@@ -14,7 +14,9 @@ async function loadMyOrders() {
 
     try {
 
-        const res = await fetch(`https://food-ordering-system.up.railway.app/api/orders/${user._id}`);
+        const res = await fetch(
+            `https://food-ordering-system-production-abb0.up.railway.app/api/orders/${user._id}`
+        );
 
         const data = await res.json();
 
@@ -60,15 +62,37 @@ async function loadMyOrders() {
 
             });
 
+            const orderDate = new Date(order.createdAt).toLocaleDateString(
+                "en-GB",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+            let statusColor = "orange";
+
+            if (order.status === "Paid") statusColor = "green";
+            if (order.status === "Delivered") statusColor = "blue";
+            if (order.status === "Cancelled") statusColor = "red";
+
             container.innerHTML += `
 
                 <div class="orderCard" style="padding:20px;border-radius:10px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,.1);margin-bottom:20px;">
 
-                    <h2>📦 Order</h2>
+                    <h2>📦 Order #${order._id.slice(-6)}</h2>
+
+                    <p>
+                        <b>Status :</b>
+                        <span style="color:${statusColor};font-weight:bold;">
+                            ${order.status}
+                        </span>
+                    </p>
+
+                    <p><b>Date :</b> ${orderDate}</p>
 
                     <p><b>Total :</b> ₹${order.totalAmount}</p>
-
-                    <p><b>Status :</b> ${order.status}</p>
 
                     <hr><br>
 
