@@ -432,6 +432,19 @@
            <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
              🛒 Add To Cart
             </button>
+            ${
+JSON.parse(localStorage.getItem("user"))?.role === "admin"
+? `
+<button onclick="updateFood('${food._id}')">
+    ✏ Update
+</button>
+
+<button onclick="deleteFood('${food._id}')">
+    🗑 Delete
+</button>
+`
+: ""
+}
 
             
 
