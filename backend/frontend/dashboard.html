@@ -281,11 +281,10 @@
 
         <button onclick="getFoods()">
         🍔 Foods
-    </button>
-
+    </button> ${ JSON.parse(localStorage.getItem("user"))?.role === "admin" ? `
         <button onclick="addFood()">
-        ➕ Add Food
-    </button>
+    ➕ Add Food
+</button> ` : "" }
 
         <button onclick="searchFood()">
         🔍 Search Food
