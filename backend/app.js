@@ -1,4 +1,5 @@
 console.log("🔥 APP FILE LOADED");
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -16,7 +17,19 @@ const app = express();
 // Middleware
 // ==========================
 app.use(express.json());
-app.use(cors());
+
+app.use(
+    cors({
+        origin: [
+            "https://food-ordering-frontend-production-e60a.up.railway.app",
+            "http://localhost:3000",
+            "http://127.0.0.1:5500"
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
+    })
+);
+
 app.use(
     helmet({
         contentSecurityPolicy: false,
