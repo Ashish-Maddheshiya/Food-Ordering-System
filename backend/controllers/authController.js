@@ -128,3 +128,35 @@ exports.getProfile = async(req, res) => {
         });
     }
 };
+exports.resetPassword = async(req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        user.password = password;
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Password Updated Successfully"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
