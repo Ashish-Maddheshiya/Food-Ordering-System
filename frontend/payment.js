@@ -47,7 +47,7 @@ async function payNow() {
         };
         try {
 
-            const res = await fetch("https://food-ordering-system.up.railway.app/api/orders", {
+            const res = await fetch("https://food-ordering-system-production-abb0.up.railway.app/api/orders", {
 
                 method: "POST",
 

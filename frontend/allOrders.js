@@ -1,14 +1,27 @@
 const container = document.getElementById("ordersContainer");
 
+const API_URL =
+    "https://food-ordering-system-production-abb0.up.railway.app";
+
 async function loadOrders() {
 
     try {
 
-        const res = await fetch("https://food-ordering-system.up.railway.app/api/orders/all");
+        const res = await fetch(`${API_URL}/api/orders/all`);
 
         const data = await res.json();
 
         container.innerHTML = "";
+
+        if (!data.orders || data.orders.length === 0) {
+
+            container.innerHTML = `
+                <h2 style="text-align:center;">
+                    No Orders Found
+                </h2>
+            `;
+            return;
+        }
 
         data.orders.forEach(order => {
 
@@ -73,7 +86,7 @@ async function updateStatus(orderId, status) {
     try {
 
         const res = await fetch(
-            `https://food-ordering-system.up.railway.app/api/orders/status/${orderId}`, {
+            `${API_URL}/api/orders/status/${orderId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -89,6 +102,10 @@ async function updateStatus(orderId, status) {
             alert("✅ Status Updated");
 
             loadOrders();
+
+        } else {
+
+            alert(data.message);
 
         }
 
