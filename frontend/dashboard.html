@@ -390,8 +390,9 @@
 
         }
         async function getFoods() {
+            const currentUser = JSON.parse(localStorage.getItem("user") || "null");
 
-            const res = await fetch("http://localhost:5000/api/foods");
+            const res = await fetch("https://food-ordering-system-production-abb0.up.railway.app/api/foods");
             if (!res.ok) {
                 alert("Server Error");
                 return;
@@ -434,7 +435,8 @@
 </button>
 
 ${
-    JSON.parse(localStorage.getItem("user"))?.role === "admin"
+currentUser?.role === "admin"
+    
     ? `
     <button onclick="updateFood('${food._id}')">
         ✏ Update
