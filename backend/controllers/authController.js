@@ -136,126 +136,125 @@ exports.getProfile = async(req, res) => {
 // Send OTP
 // ==========================
 exports.sendOTP = async(req, res) => {
-    try {
+        try {
 
-        const { email } = req.body;
+            const { email } = req.body;
 
-        const user = await User.findOne({ email });
+            const user = await User.findOne({ email });
 
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "Email not found"
-            });
-        }
-
-        const otp = Math.floor(
-            100000 + Math.random() * 900000
-        );
-
-        otpStore[email] = otp;
-
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+            if (!user) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Email not found"
+                });
             }
-        });
 
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: "Food Ordering Password Reset OTP",
-            text: `Your OTP is ${otp}`
-        });
+            const otp = Math.floor(
+                100000 + Math.random() * 900000
+            );
 
-        res.json({
-            success: true,
-            message: "OTP sent successfully"
-        });
+            otpStore[email] = otp;
 
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-
-    }
-};
-//verify otp
-exports.verifyOTP = async(req, res) => {
-
-    try {
-
-        const { email, otp } = req.body;
-
-        if (otpStore[email] != otp) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Invalid OTP"
+            const transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
             });
 
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "OTP Verified"
-        });
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-
-    }
-
-};
-
-
-// ==========================
-// Reset Password
-// ==========================
-exports.resetPassword = async(req, res) => {
-
-    try {
-
-        const { email, otp, password } = req.body;
-
-        if (otpStore[email] != otp) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Invalid OTP"
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: email,
+                subject: "Food Ordering Password Reset OTP",
+                text: `Your OTP is ${otp}`
             });
 
-        }
+            res.json({
+                success: true,
+                message: "OTP sent successfully"
+            });
 
-        const user = await User.findOne({ email });
 
-        user.password = password;
+        } catch (error) {
+            console.log("OTP ERROR FULL =", error);
 
-        await user.save();
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        } //verify otp
+        exports.verifyOTP = async(req, res) => {
 
-        delete otpStore[email];
+            try {
 
-        res.json({
-            success: true,
-            message: "Password changed successfully"
-        });
+                const { email, otp } = req.body;
 
-    } catch (error) {
+                if (otpStore[email] != otp) {
 
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+                    return res.status(400).json({
+                        success: false,
+                        message: "Invalid OTP"
+                    });
 
-    }
-};
+                }
+
+                res.status(200).json({
+                    success: true,
+                    message: "OTP Verified"
+                });
+
+            } catch (error) {
+
+                res.status(500).json({
+                    success: false,
+                    message: error.message
+                });
+
+            }
+
+        };
+
+
+        // ==========================
+        // Reset Password
+        // ==========================
+        exports.resetPassword = async(req, res) => {
+
+            try {
+
+                const { email, otp, password } = req.body;
+
+                if (otpStore[email] != otp) {
+
+                    return res.status(400).json({
+                        success: false,
+                        message: "Invalid OTP"
+                    });
+
+                }
+
+                const user = await User.findOne({ email });
+
+                user.password = password;
+
+                await user.save();
+
+                delete otpStore[email];
+
+                res.json({
+                    success: true,
+                    message: "Password changed successfully"
+                });
+
+            } catch (error) {
+
+                res.status(500).json({
+                    success: false,
+                    message: error.message
+                });
+
+            }
+        };
