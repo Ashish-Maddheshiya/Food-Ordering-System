@@ -281,10 +281,10 @@
 
         <button onclick="getFoods()">
         🍔 Foods
-    </button> ${ JSON.parse(localStorage.getItem("user"))?.role === "admin" ? `
-        <button onclick="addFood()">
+    </button>
+        <button id="addFoodBtn" onclick="addFood()">
     ➕ Add Food
-</button> ` : "" }
+</button>
 
         <button onclick="searchFood()">
         🔍 Search Food
@@ -1079,6 +1079,11 @@ function viewFood(id) {
 
     window.location.href = "foodDetails.html";
 
+}
+const currentUser = JSON.parse(localStorage.getItem("user"));
+
+if (currentUser?.role !== "admin") {
+    document.getElementById("addFoodBtn").style.display = "none";
 }
     </script>
 
