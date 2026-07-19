@@ -435,7 +435,19 @@
            <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
              🛒 Add To Cart
             </button>
+${
+JSON.parse(localStorage.getItem("user"))?.role === "admin"
+? `
+<button onclick="updateFood('${food._id}')">
+    ✏ Update
+</button>
 
+<button onclick="deleteFood('${food._id}')">
+    🗑 Delete
+</button>
+`
+: ""
+}
             
 
             
@@ -566,7 +578,7 @@ async function loadDashboardAnalytics() {
                 👁 View Details
                 </button>
 
-                <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
+               <button onclick="addToCart('${food._id}','${food.name}',${food.price},'${food.image}')">
 
                     🛒 Add To Cart
 
@@ -609,7 +621,7 @@ async function loadDashboardAnalytics() {
 
             const res = await fetch("https://food-ordering-system-production-abb0.up.railway.app/api/foods/" + id, {
                 method: "DELETE"
-            });
+            }); 
 
             if (!res.ok) {
                 alert("Server Error");
@@ -956,6 +968,19 @@ function showCart() {
                     <button onclick="addToCart('${food._id}','${food.name}',${food.price})">
                     🛒 Add To Cart
                     </button>
+                    ${
+JSON.parse(localStorage.getItem("user"))?.role === "admin"
+? `
+<button onclick="updateFood('${food._id}')">
+    ✏ Update
+</button>
+
+<button onclick="deleteFood('${food._id}')">
+    🗑 Delete
+</button>
+`
+: ""
+}
 
                     
                 </div>
